@@ -53,8 +53,19 @@ async def scan_url(request: URLScanRequest):
         "virustotal": result.get("virustotal"),
         "created_at": datetime.now(timezone.utc),
     }
+
     db = get_db()
-    inserted = await db.scan_history.insert_one(doc)
-    result["id"] = str(inserted.inserted_id)
+    if db is None:
+        result["id"] = None
+        result["history_saved"] = False
+        return result
+
+    try:
+        inserted = await db.scan_history.insert_one(doc)
+        result["id"] = str(inserted.inserted_id)
+        result["history_saved"] = True
+    except Exception:
+        result["id"] = None
+        result["history_saved"] = False
 
     return result
