@@ -1,0 +1,40 @@
+============================================================
+  PHISHGUARD AI — REAL DATASET TRAINING REPORT
+============================================================
+
+DATASET
+  Total URLs    : 50,000
+  Phishing      : 25,000
+  Legitimate    : 25,000
+  Features      : 32
+
+CROSS-VALIDATION (5-Fold)
+  F1 per fold   : [0.998, 0.9975, 0.998, 0.9971, 0.9971]
+  Mean F1       : 0.9975
+
+TEST SET RESULTS
+  Accuracy      : 99.84%
+  Precision     : 99.94%
+  Recall        : 99.74%
+  F1-Score      : 99.84%
+  ROC-AUC       : 99.97%
+
+CONFUSION MATRIX
+  True  Positives (phishing caught)    : 4,987
+  True  Negatives (legitimate passed)  : 4,997
+  False Positives (false alarms)       : 3
+  False Negatives (phishing missed)    : 13
+
+TOP 10 FEATURES
+   1. num_slashes                  0.3068
+   2. path_length                  0.2749
+   3. path_entropy                 0.1400
+   4. num_subdomains               0.0663
+   5. num_digits                   0.0362
+   6. hostname_length              0.0306
+   7. num_dots                     0.0276
+   8. hostname_entropy             0.0249
+   9. is_https                     0.0201
+  10. digit_ratio                  0.0183
+
+============================================================
