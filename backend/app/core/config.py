@@ -4,7 +4,7 @@ class Settings(BaseSettings):
     MONGO_URI: str = "mongodb://localhost:27017"
     DB_NAME: str = "phishguard"
     MODEL_PATH: str = "app/ml/models/phishing_model.pkl"
-    VIRUSTOTAL_API_KEY: str = ""   # Optional: add your VirusTotal key in .env
+    VIRUSTOTAL_API_KEY: str = ""
     APP_ENV: str = "development"
 
     class Config:
