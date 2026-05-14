@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: phishguard-backend
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DB_NAME
+        value: phishguard
+      - key: MODEL_PATH
+        value: app/ml/models/phishing_model_real.pkl
+      - key: CORS_ORIGINS
+        sync: false
+      - key: MONGO_URI
+        sync: false
+      - key: VIRUSTOTAL_API_KEY
+        sync: false
+
+  - type: web
+    name: phishguard-frontend
+    env: static
+    rootDir: Frontend
+    plan: free
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: phishguard-backend
+          property: host
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

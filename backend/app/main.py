@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import url_scan, email_scan, history, stats
 from app.core.database import connect_db, close_db
+from app.core.config import settings
 from app.ml.trainer import ensure_model_trained
 
 app = FastAPI(
@@ -10,9 +11,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
+cors_origins = [origin.strip() for origin in settings.CORS_ORIGINS.split(",") if origin.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
