@@ -42,3 +42,7 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
+
+@app.get("/api/v1")
+async def api_root():
+    return {"message": "PhishGuard API v1"}
