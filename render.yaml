@@ -3,7 +3,6 @@ services:
     name: phishguard-backend
     env: python
     rootDir: backend
-    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
@@ -25,7 +24,6 @@ services:
     name: phishguard-frontend
     env: static
     rootDir: Frontend
-    plan: free
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
     envVars:
